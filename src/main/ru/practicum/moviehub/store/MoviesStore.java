@@ -13,7 +13,7 @@ public class MoviesStore {
     private final Map<Integer, Movie> movies = new HashMap<>();
     private int nextId = 1;
 
-    public synchronized Movie add(String title, int year) {
+    public Movie add(String title, int year) {
         int id = nextId;
         nextId += 1;
 
@@ -22,21 +22,21 @@ public class MoviesStore {
         return movie;
     }
 
-    public synchronized List<Movie> findAll() {
+    public List<Movie> findAll() {
         List<Movie> result = new ArrayList<>(movies.values());
         result.sort(Comparator.comparingInt(Movie::getId));
         return result;
     }
 
-    public synchronized Movie findById(int id) {
+    public Movie findById(int id) {
         return movies.get(id);
     }
 
-    public synchronized boolean deleteById(int id) {
+    public boolean deleteById(int id) {
         return movies.remove(id) != null;
     }
 
-    public synchronized List<Movie> findByYear(int year) {
+    public List<Movie> findByYear(int year) {
         List<Movie> result = new ArrayList<>();
         for (Movie movie : movies.values()) {
             if (movie.getYear() == year) {
@@ -47,7 +47,7 @@ public class MoviesStore {
         return result;
     }
 
-    public synchronized void clear() {
+    public void clear() {
         movies.clear();
         nextId = 1;
     }
